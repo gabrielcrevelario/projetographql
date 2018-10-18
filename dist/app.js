@@ -9,10 +9,10 @@ class App {
         this.middleware();
     }
     middleware() {
-        this.express.use('/graphql', graphqlHTTP({
+        this.express.use('/graphql', graphqlHTTP((req) => ({
             schema: schema_1.default,
-            graphiql: process.env.NODE_ENV === 'development'
-        }));
+            graphiql: process.env.NODE_ENV.trim() === 'development',
+        })));
     }
 }
 exports.default = new App().express;

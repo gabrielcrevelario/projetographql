@@ -8,10 +8,11 @@ import schema from './graphql/schema'
         this.middleware()
     }
      private middleware(): void {
-        this.express.use('/graphql', graphqlHTTP({
+        this.express.use('/graphql', graphqlHTTP((req) => ({
             schema:schema,
-            graphiql:process.env.NODE_ENV === 'development'
-        }));
+            graphiql: process.env.NODE_ENV.trim() === 'development',
+        }))
+        );
     }
  }
  export default new App().express 
